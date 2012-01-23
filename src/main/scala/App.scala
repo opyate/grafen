@@ -9,24 +9,20 @@ class App extends unfiltered.filter.Plan {
 
   def intent = {
     case GET(Path("/")) =>
-      Ok ~> view(Map.empty)(<p> What say you? </p>)
+      Ok ~> view(Map.empty)(<p> How many nodes? </p>)
     case POST(Path(p) & Params(params)) =>
+
       val vw = view(params)_
       val expected = for {
         int <- lookup("int") is
           int { _ + " is not an integer" } is
           required("missing int")
-        word <- lookup("palindrome") is
-          trimmed is
-          nonempty("Palindrome is empty") is
-          pred(palindrome,  _ + " is not a palindrome") is
-          required("missing palindrome")
-      } yield vw(<p>Yup. { int.get } is an integer and { word.get } is a palindrome. </p>)
+      } yield vw(<p>Creating { int.get } nodes. </p>)
       expected(params) orFail { fails =>
         vw(<ul class="fail"> { fails.map { f => <li>{f.error} </li> } } </ul>)
       }
   }
-  def palindrome(s: String) = s.toLowerCase.reverse == s.toLowerCase
+
   def view(params: Map[String, Seq[String]])(body: scala.xml.NodeSeq) = {
     def p(k: String) = params.get(k).flatMap { _.headOption } getOrElse("")
     Html(
@@ -37,12 +33,10 @@ class App extends unfiltered.filter.Plan {
       </head>
       <body>
         <div id="container">
-          Congradulations. You are running on google's infrastructure.
           <hr/>
           { body }
            <form method="POST">
-             Integer <input name="int" value={ p("int") } ></input>
-             Palindrome <input name="palindrome" value={ p("palindrome") } />
+             Nodes <input name="int" value={ p("int") } ></input>
              <input type="submit" />
            </form>
           </div>
