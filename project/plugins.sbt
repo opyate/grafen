@@ -2,8 +2,6 @@ resolvers += "Web plugin repo" at "http://siasia.github.com/maven2"
 
 libraryDependencies <+= sbtVersion(v => "com.github.siasia" %% "xsbt-web-plugin" % (v+"-0.2.10"))
 
-addSbtPlugin("com.eed3si9n" % "sbt-appengine" % "0.3.1")
-
 resolvers ++= Seq(
   "less is" at "http://repo.lessis.me",
   "coda" at "http://repo.codahale.com")
