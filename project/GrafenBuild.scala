@@ -13,7 +13,7 @@ object GrafenBuild extends Build {
     )
   ) dependsOn(scalaGraph)
 
-  lazy val scalaGraph = RootProject(uri("git://github.com/opyate/scala-graph-assembla.git"))
+  lazy val scalaGraph = RootProject(uri("git://github.com/opyate/scala-graph.git"))
 
   //lazy val scalaGraph = RootProject(file("/Users/juanuys/Documents/src/github/graph-projects/scala-graph-combo/trunk"))
 
