@@ -11,7 +11,7 @@ object GrafenBuild extends Build {
       organization := "com.opyate",
       version := "0.0.1-SNAPSHOT"
     )
-  ) dependsOn(scalaGraph)
+  ) dependsOn(scalaGraph) aggregate(scalaGraph)
 
   lazy val scalaGraph = RootProject(uri("git://github.com/opyate/scala-graph.git"))
 
